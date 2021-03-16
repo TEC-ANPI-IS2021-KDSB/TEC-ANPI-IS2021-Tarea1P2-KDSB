@@ -117,6 +117,7 @@ class Ui_MainWindow(object):
     font.setPointSize(12)
     self.label_7.setFont(font)
     self.label_7.setObjectName("label_7")
+    
     self.lineEdit_3 = QtWidgets.QLineEdit(self.centralwidget)
     self.lineEdit_3.setGeometry(QtCore.QRect(150, 320, 121, 28))
     self.lineEdit_3.setObjectName("lineEdit_3")
@@ -126,6 +127,17 @@ class Ui_MainWindow(object):
     self.lineEdit_5 = QtWidgets.QLineEdit(self.centralwidget)
     self.lineEdit_5.setGeometry(QtCore.QRect(390, 360, 51, 28))
     self.lineEdit_5.setObjectName("lineEdit_5")
+    self.lineEdit_6 = QtWidgets.QLineEdit(self.centralwidget)
+    self.lineEdit_6.setGeometry(QtCore.QRect(460, 320, 121, 28))
+    self.lineEdit_6.setObjectName("lineEdit_6")
+    #Validadores
+    self.lineEdit_3.setValidator(self.onlyDouble)
+    self.lineEdit_4.setValidator(self.onlyDouble)
+    self.lineEdit_5.setValidator(self.onlyDouble)
+    self.lineEdit_6.setValidator(self.onlyDouble)
+
+
+
     self.label_8 = QtWidgets.QLabel(self.centralwidget)
     self.label_8.setGeometry(QtCore.QRect(360, 360, 21, 31))
     font = QtGui.QFont()
@@ -146,10 +158,7 @@ class Ui_MainWindow(object):
     font.setPointSize(12)
     self.label_9.setFont(font)
     self.label_9.setObjectName("label_9")
-    self.lineEdit_6 = QtWidgets.QLineEdit(self.centralwidget)
-    self.lineEdit_6.setGeometry(QtCore.QRect(460, 320, 121, 28))
-    self.lineEdit_6.setObjectName("lineEdit_6")
-    
+        
     # Boton de previsualizar
     self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
     self.pushButton_3.setGeometry(QtCore.QRect(360, 60, 131, 91))
@@ -164,10 +173,55 @@ class Ui_MainWindow(object):
     self.retranslateUi(MainWindow)
     QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+  # Esta funcion se ejecuta al presionar el boton calcular
   def calcular(self):
+
+    # Expeficamos que x va a corresponder al simbolo x
     x=Symbol('x')
+
+    # Aqui iniciamos la verificacion de los valores de entrada y avisamos al usuario si alguno no tiene el formato que deberia
+
+    # Verificacion del primer valor inicial para newton-raphson o secante
     try:
+      if self.solution == "nr" or self.solution=="sec"
+        float(self.lineEdit_3.text().replace(',','.'))
+    except Exception as ex:
+      QMessageBox.critical(self.centralwidget, 'Error', 'El primer valor inicial no es valido')
+      return
+
+      # Verificacion del segundo valor inicial para secante
+    try:
+      if self.solution == "sec":
+        float(self.lineEdit_6.text().replace(',','.'))
+    except Exception as ex:
+      QMessageBox.critical(self.centralwidget, 'Error', 'El segundo valor inicial no es valido')
+      return
+
+    # Verficacion del intervalo para biseccion y falsa posicion
+    try:
+      if self.solution == "falsa" or self.solution=="bi"
+        num1 = float(self.lineEdit_4.text().replace(',','.'))
+        num2 = float(self.lineEdit_5.text().replace(',','.'))
+        if(num1>num2): # Verificamos que el maximo del intervalo sea mayor al minimo
+          QMessageBox.critical(self.centralwidget, 'Error', 'El minimo del intervalo es mayor al maximo')
+          return
+    except Exception as ex:
+      QMessageBox.critical(self.centralwidget, 'Error', 'Uno de los extremos del intervalo no es valido')
+      return
+    # Aqui verificamos la tolerancia y las iteraciones maximas
+    try:
+    except Exception as ex:
+      QMessageBox.critical(self.centralwidget, 'Error', 'La tolerancia y las iteraciones maximas deben ser mayores a 0')
+
+    # Aqui tratamos de encontrar la solucion a la funcion, de no encontrarse avisamos al usuario
+    try:
+      # Seteamos las variables que vamos a ocupar
       funcion = S.sympify(self.textEdit.toPlainText())
+      x0 = float(self.lineEdit_3.text().replace(',','.'))
+      x1 = float(self.lineEdit_6.text().replace(',','.'))
+      a = float(self.lineEdit_4.text().replace(',','.'))
+      b = float(self.lineEdit_5.text().replace(',','.'))
+      metodo = self.solution
       print("Probar la funcion")
       print(funcion)
       print("Con valor inicial 1:")
