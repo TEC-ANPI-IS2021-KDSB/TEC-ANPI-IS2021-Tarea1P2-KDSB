@@ -9,12 +9,5 @@ app = QApplication(sys.argv)
 mainWindow = QMainWindow()
 mainUi = Ui_MainWindow()
 mainUi.setupUi(mainWindow)
-
-# Setting up help window
-helpDialog = QDialog()
-helpUi = Ui_Dialog()
-helpUi.setupUi(helpDialog)
-
 mainWindow.show()
-helpDialog.show()
 sys.exit(app.exec_())

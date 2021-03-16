@@ -10,16 +10,18 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QDialog
 from sympy.plotting import plot
 from sympy import *
 import sympy as S
 
+# Importando otras ventanas
+from ui_helpdialog import Ui_Dialog
 
 class Ui_MainWindow(object):
   def setupUi(self, MainWindow):
     MainWindow.setObjectName("MainWindow")
-    MainWindow.resize(594, 459)
+    MainWindow.resize(595, 510)
     self.centralwidget = QtWidgets.QWidget(MainWindow)
     self.centralwidget.setObjectName("centralwidget")
     self.label = QtWidgets.QLabel(self.centralwidget)
@@ -112,7 +114,7 @@ class Ui_MainWindow(object):
     self.label_6.setFont(font)
     self.label_6.setObjectName("label_6")
     self.label_7 = QtWidgets.QLabel(self.centralwidget)
-    self.label_7.setGeometry(QtCore.QRect(150, 350, 151, 41))
+    self.label_7.setGeometry(QtCore.QRect(180, 400, 151, 41))
     font = QtGui.QFont()
     font.setPointSize(12)
     self.label_7.setFont(font)
@@ -122,10 +124,10 @@ class Ui_MainWindow(object):
     self.lineEdit_3.setGeometry(QtCore.QRect(150, 320, 121, 28))
     self.lineEdit_3.setObjectName("lineEdit_3")
     self.lineEdit_4 = QtWidgets.QLineEdit(self.centralwidget)
-    self.lineEdit_4.setGeometry(QtCore.QRect(300, 360, 51, 28))
+    self.lineEdit_4.setGeometry(QtCore.QRect(330, 410, 51, 28))
     self.lineEdit_4.setObjectName("lineEdit_4")
     self.lineEdit_5 = QtWidgets.QLineEdit(self.centralwidget)
-    self.lineEdit_5.setGeometry(QtCore.QRect(390, 360, 51, 28))
+    self.lineEdit_5.setGeometry(QtCore.QRect(420, 410, 51, 28))
     self.lineEdit_5.setObjectName("lineEdit_5")
     self.lineEdit_6 = QtWidgets.QLineEdit(self.centralwidget)
     self.lineEdit_6.setGeometry(QtCore.QRect(460, 320, 121, 28))
@@ -139,18 +141,21 @@ class Ui_MainWindow(object):
 
 
     self.label_8 = QtWidgets.QLabel(self.centralwidget)
-    self.label_8.setGeometry(QtCore.QRect(360, 360, 21, 31))
+    self.label_8.setGeometry(QtCore.QRect(390, 410, 21, 31))
     font = QtGui.QFont()
     font.setPointSize(12)
     self.label_8.setFont(font)
     self.label_8.setLayoutDirection(QtCore.Qt.LeftToRight)
     self.label_8.setAlignment(QtCore.Qt.AlignCenter)
     self.label_8.setObjectName("label_8")
+    # help button
     self.pushButton = QtWidgets.QPushButton(self.centralwidget)
     self.pushButton.setGeometry(QtCore.QRect(530, 10, 51, 31))
     self.pushButton.setObjectName("pushButton")
+    self.pushButton.clicked.connect(self.showHelp)
+
     self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-    self.pushButton_2.setGeometry(QtCore.QRect(250, 400, 107, 31))
+    self.pushButton_2.setGeometry(QtCore.QRect(250, 450, 107, 31))
     self.pushButton_2.setObjectName("pushButton_2")
     self.label_9 = QtWidgets.QLabel(self.centralwidget)
     self.label_9.setGeometry(QtCore.QRect(290, 310, 161, 41))
@@ -165,6 +170,26 @@ class Ui_MainWindow(object):
     self.pushButton_3.setObjectName("pushButton_3")
     self.pushButton_3.clicked.connect(self.showGrafica)
 
+    self.label_10 = QtWidgets.QLabel(self.centralwidget)
+    self.label_10.setGeometry(QtCore.QRect(40, 360, 101, 41))
+    font = QtGui.QFont()
+    font.setPointSize(12)
+    self.label_10.setFont(font)
+    self.label_10.setObjectName("label_10")
+    self.lineEdit_7 = QtWidgets.QLineEdit(self.centralwidget)
+    self.lineEdit_7.setGeometry(QtCore.QRect(150, 360, 121, 28))
+    self.lineEdit_7.setObjectName("lineEdit_7")
+    self.label_11 = QtWidgets.QLabel(self.centralwidget)
+    self.label_11.setGeometry(QtCore.QRect(290, 350, 151, 41))
+    font = QtGui.QFont()
+    font.setPointSize(12)
+    self.label_11.setFont(font)
+    self.label_11.setObjectName("label_11")
+    self.lineEdit_8 = QtWidgets.QLineEdit(self.centralwidget)
+    self.lineEdit_8.setGeometry(QtCore.QRect(460, 360, 121, 28))
+    self.lineEdit_8.setObjectName("lineEdit_8")
+
+
     MainWindow.setCentralWidget(self.centralwidget)
     self.statusbar = QtWidgets.QStatusBar(MainWindow)
     self.statusbar.setObjectName("statusbar")
@@ -172,6 +197,14 @@ class Ui_MainWindow(object):
 
     self.retranslateUi(MainWindow)
     QtCore.QMetaObject.connectSlotsByName(MainWindow)
+    
+    self.helpDialog = QDialog()
+    self.helpui = Ui_Dialog()
+    self.helpui.setupUi(self.helpDialog)
+
+  # Shows the help dialog
+  def showHelp(self):
+    self.helpDialog.show()
 
   # Esta funcion se ejecuta al presionar el boton calcular
   def calcular(self):
@@ -183,7 +216,7 @@ class Ui_MainWindow(object):
 
     # Verificacion del primer valor inicial para newton-raphson o secante
     try:
-      if self.solution == "nr" or self.solution=="sec"
+      if self.solution == "nr" or self.solution=="sec":
         float(self.lineEdit_3.text().replace(',','.'))
     except Exception as ex:
       QMessageBox.critical(self.centralwidget, 'Error', 'El primer valor inicial no es valido')
@@ -199,7 +232,7 @@ class Ui_MainWindow(object):
 
     # Verficacion del intervalo para biseccion y falsa posicion
     try:
-      if self.solution == "falsa" or self.solution=="bi"
+      if self.solution == "falsa" or self.solution=="bi":
         num1 = float(self.lineEdit_4.text().replace(',','.'))
         num2 = float(self.lineEdit_5.text().replace(',','.'))
         if(num1>num2): # Verificamos que el maximo del intervalo sea mayor al minimo
@@ -210,18 +243,34 @@ class Ui_MainWindow(object):
       return
     # Aqui verificamos la tolerancia y las iteraciones maximas
     try:
+      tol = float(self.lineEdit_7.text().replace(',','.'))
+      maxIt = int(self.lineEdit_8.text())
+      if tol < 0 or maxIt <= 0:
+        raise Exception('Error en tolerancia e iteraciones')
     except Exception as ex:
-      QMessageBox.critical(self.centralwidget, 'Error', 'La tolerancia y las iteraciones maximas deben ser mayores a 0')
+      QMessageBox.critical(self.centralwidget, 'Error', 'La tolerancia y las iteraciones maximas deben ser validas y mayores a 0')
+      return
 
     # Aqui tratamos de encontrar la solucion a la funcion, de no encontrarse avisamos al usuario
     try:
       # Seteamos las variables que vamos a ocupar
+      # Funcion a evaluar, en simbolico
       funcion = S.sympify(self.textEdit.toPlainText())
+      # Valores iniciales
       x0 = float(self.lineEdit_3.text().replace(',','.'))
       x1 = float(self.lineEdit_6.text().replace(',','.'))
+      #[a,b]
       a = float(self.lineEdit_4.text().replace(',','.'))
       b = float(self.lineEdit_5.text().replace(',','.'))
-      metodo = self.solution
+      metodo = self.solution # Metodo a utilizar
+
+      ## NEGRO: Aqui tiene que agarrar esas variables y meterlas a la funcion que sea pertinente, luego desplegar un QMessageBox con el resultado
+      ## NEGROOOOOOOOOOOO: Puede utilizar estas variables para guardar el error y el resultado de la aproximacion, como ve abajo se usan para crear un string y un QMessagebox que muestra el resultado
+      aproximacion=1
+      error=1
+      resultadoString = "La aproximacion de la funcion es {}, esto con un error de {}".format(aproximacion, error) #Esto es lo que se va a mostrar en la pantalla
+      QMessageBox.information(self.centralwidget, 'Resultado satisfactorio', resultadoString)
+
       print("Probar la funcion")
       print(funcion)
       print("Con valor inicial 1:")
@@ -295,3 +344,5 @@ class Ui_MainWindow(object):
     self.pushButton_2.clicked.connect(self.calcular)
     self.label_9.setText(_translate("MainWindow", "Segundo valor inicial"))
     self.pushButton_3.setText(_translate("MainWindow", "Previsualizar"))
+    self.label_10.setText(_translate("MainWindow", "Tolerancia"))
+    self.label_11.setText(_translate("MainWindow", "Iteraciones maximas"))
