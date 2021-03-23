@@ -1,5 +1,5 @@
 from sympy import *
-
+import math
 
 # Funcion para calcular ceros de funcion
 # Entradas: 
@@ -48,7 +48,10 @@ def metodo_nuevo(funcion, valorInicial, tolerancia, iterMax):
 
     # Se intenta devolver los valores, si hay un "OverFlow" es porque el error es muy grande
     try:
-        return [x_n, k, funcion(x_n)]
+        if(not math.isnan(x_n)):
+            return [x_n, k, funcion(x_n)]
+        else:
+            return [float('inf'), k, float('inf')]
     except OverflowError:
         return [x_n, k, float('inf')]
 
