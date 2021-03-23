@@ -65,7 +65,7 @@ def prueba():
     [xn, k, error] = metodo_nuevo("x^5+x^4+4*x^2-15", 1.5, 10**-8,100)
     print("Error: " + str(error) + " | Iteraciones : " + str(k) + " |  Cero: " + str(xn))
     # Prueba con x*exp(x^2)-(sin(x))^2+3*cos(x)+5
-    [xn, k, error] = metodo_nuevo("x*exp(x^2)-(sin(x))^2+3*cos(x)+5", 0, 10**-8,100)
+    [xn, k, error] = metodo_nuevo("x*exp(x^2)-(sin(x))^2+3*cos(x)+5", -1.1, 10**-8,100)
     print("Error: " + str(error) + " | Iteraciones : " + str(k) + " |  Cero: " + str(xn))
     # Prueba con 11*x^11-1
     [xn, k, error] = metodo_nuevo("11*x^11-1", 1.5, 10**-8,100)
