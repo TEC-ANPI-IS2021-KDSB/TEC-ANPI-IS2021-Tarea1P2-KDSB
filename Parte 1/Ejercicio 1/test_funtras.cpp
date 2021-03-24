@@ -168,7 +168,7 @@ double asin_t(double x){
 
     do {
         check = S; //check toma el valor de S
-        S += factorial(2*i)/(pow(4,i)*pow(factorial(i), 2)*(2*i+1))*pow(x, 2*i+1); //se realiza la sumatoria
+        S += factorial(2*i)/((pow(4,i)*pow(factorial(i), 2)*(2*i+1))*pow(x, 2*i+1)); //se realiza la sumatoria
         i++; //incremento de i
     } while(abs((S - check)) > tol && i < 2500); //condicion de parada | asin(a)k – asin(a)k-1 |    < tol con 2500 iteraciones maximas
 
