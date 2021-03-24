@@ -21,7 +21,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
 
-        # Create the maptlotlib FigureCanvas object, 
+        # Create the maptlotlib FigureCanvas object,
         # which defines a single set of axes as self.axes.
         sc = MplCanvas(self, width=5, height=4, dpi=100)
         sc.axes.plot([0,1,2,3,4], [10,1,20,3,40])
