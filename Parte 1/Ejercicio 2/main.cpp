@@ -1,7 +1,7 @@
 #include <iostream>
 #include<math.h>
 #include <iomanip>
-#include"fun_tras.h"
+#include"funtras.h"
 using namespace std;
 
 /*

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <limits>
-#include "fun_tras.h"
+#include "funtras.h"
 
 //Esos includes permiten utilizar funciones declaradas en el archivo cabecera
 using namespace std;  //
